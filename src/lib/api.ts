@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Post } from "../app/types";
 import { API_ENDPOINT } from "@/lib/constants";
+import { Comment } from "../app/types";
 
 
 const API = axios.create({
@@ -20,5 +21,5 @@ export async function fetchPost(id: string): Promise<Post> {
 
 export async function fetchComments(postId: number): Promise<Comment[]> {
   const { data } = await API.get<Comment[]>(`/comments`, );
-  return data.filter((item) => item.postId === postId);
+  return (data as Comment[]).filter((item) => item.postId === postId);
 }
